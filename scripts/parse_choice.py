@@ -9,8 +9,8 @@ import regex
 
 def load_datasets():
     CHILDES = read_csv("C:/Users/AzF/unit analysis/childes.csv")
-    compound_df = 
-    return CHILDES
+    compound_df = read_csv("C:/Users/AzF/unit analysis/compound_df.csv")
+    return CHILDES,compound_df
 
 def subset_datasets(CHILDES):
     CHILDES_utterances = CHILDES['stem'].str.lower()
@@ -18,19 +18,16 @@ def subset_datasets(CHILDES):
 
     return CHILDES_utterances
 
-def  import_datasets():
-    compound_df = read_csv("C:/Users/AzF/unit analysis/compound_df.csv") 
-    compound_df.columns = ['index','original','frequency','category','replacement','exmp_utterance',"1","2","3","4","5"]
-    
-    return compound_df
 
 def modify_df(compound_df):
     mod_compund_df = compound_df[['index','original','category','replacement']]
+   
     return mod_compund_df
 
 def categories(mod_compund_df):
     categoties = mod_compund_df["category"]
     unique_categories = categoties.unique()
+    
     return unique_categories
 
 def word_replace(mod_compund_df,CHILDES_utterances):
@@ -43,7 +40,7 @@ def word_replace(mod_compund_df,CHILDES_utterances):
     return replace_dict , replaced_CHILDES
 
 def main():
-    CHILDES,CHILDES_utterances=import_CHILDES()
+    CHILDES,compound_df=load_datasets()
     # compound_df = import_datasets()
     # mod_compund_df = modify_df(compound_df)
     # unique_categories = categories(mod_compund_df)
